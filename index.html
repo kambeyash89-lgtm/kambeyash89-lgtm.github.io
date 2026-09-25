@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meri Website</title>
+</head>
+<body>
+    <h1>Welcome to Meri Website 🚀</h1>
+    <p>Ye website maine apne phone se banayi hai.</p>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallpaper Dukaan</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#050505;
+    color:white;
+}
+
+header{
+    background:#090909;
+    border-bottom:2px solid #ff1b2d;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    color:#ff1b2d;
+    font-size:24px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:15px;
+    font-size:14px;
+}
+
+.hero{
+    min-height:330px;
+    padding:45px 20px;
+    text-align:center;
+    background:
+    radial-gradient(circle at 50% 30%,#7d0010,transparent 45%),
+    linear-gradient(135deg,#160000,#050505 60%,#220006);
+}
+
+.hero h1{
+    color:#ff2035;
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.btn{
+    display:inline-block;
+    background:#ff172c;
+    color:white;
+    padding:14px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    margin:5px;
+    border:none;
+}
+
+.btn:hover{
+    background:#ff5363;
+}
+
+.section{
+    padding:30px 15px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section h2{
+    border-left:5px solid #ff172c;
+    padding-left:10px;
+    margin-bottom:20px;
+}
+
+.search{
+    width:100%;
+    padding:14px;
+    border-radius:25px;
+    border:2px solid #ff172c;
+    background:#111;
+    color:white;
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:12px;
+}
+
+.card{
+    background:#111;
+    border:1px solid #ff3345;
+    border-radius:14px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 20px #ff172c;
+}
+
+.card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    display:block;
+}
+
+.card p{
+    padding:10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.otp{
+    background:#100000;
+    border:2px solid #ff172c;
+    border-radius:20px;
+    padding:25px;
+    max-width:400px;
+    margin:20px auto;
+    text-align:center;
+}
+
+.otp input{
+    width:60px;
+    padding:12px;
+    margin:5px;
+    text-align:center;
+    font-size:22px;
+    background:#111;
+    color:white;
+    border:1px solid #ff172c;
+    border-radius:10px;
+}
+
+#otpMessage{
+    margin-top:15px;
+    color:#ff5060;
+}
+
+.game{
+    background:#0c0c0c;
+    border:2px solid #ff172c;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+}
+
+canvas{
+    background:#020205;
+    border:1px solid #ff172c;
+    max-width:100%;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#090909;
+    border-top:1px solid #ff172c;
+    margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">👑 Wallpaper Dukaan</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#wallpapers">Wallpapers</a>
+        <a href="#game">Game</a>
+    </nav>
+</header>
+
+
+<section class="hero" id="home">
+
+    <h1>Hello Friends 👋</h1>
+
+    <p>
+        Welcome to <b style="color:red;">Wallpaper Dukaan</b> ❤️
+        <br>
+        Yaha milenge amazing wallpapers aur ek mast game!
+    </p>
+
+    <a href="#wallpapers" class="btn">
+        🖼️ Browse Wallpapers
+    </a>
+
+    <a href="#game" class="btn">
+        🎮 Play Game
+    </a>
+
+</section>
+
+
+<!-- OTP -->
+
+<section class="section">
+
+<h2>🔐 Enter OTP</h2>
+
+<div class="otp">
+
+<p>Demo login ke liye OTP enter karo</p>
+
+<br>
+
+<input maxlength="1" id="o1">
+<input maxlength="1" id="o2">
+<input maxlength="1" id="o3">
+<input maxlength="1" id="o4">
+
+<br><br>
+
+<button class="btn" onclick="verifyOTP()">Verify OTP</button>
+
+<p id="otpMessage"></p>
+
+</div>
+
+</section>
+
+
+<!-- Wallpapers -->
+
+<section class="section" id="wallpapers">
+
+<h2>🔥 Wallpaper Collection</h2>
+
+<input
+class="search"
+id="search"
+placeholder="🔍 Search wallpaper..."
+onkeyup="searchWallpaper()"
+>
+
+<div class="grid" id="wallpaperGrid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600">
+<p>🌄 Nature</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600">
+<p>🚗 Cars</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=600">
+<p>🌌 Space</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=600">
+<p>🐱 Animals</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600">
+<p>🌸 Flowers</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600">
+<p>🎮 Gaming</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=600">
+<p>🌃 Night</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=600">
+<p>🐶 Dogs</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1534791547706-6c8c3f7f7b7f?w=600">
+<p>🌠 Galaxy</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600">
+<p>💻 Technology</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600">
+<p>🌊 Ocean</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600">
+<p>🏔️ Mountains</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GAME -->
+
+<section class="section" id="game">
+
+<h2>🎮 Play a Game</h2>
+
+<div class="game">
+
+<p>Break the blocks and score high! 🔥</p>
+
+<br>
+
+<canvas id="gameCanvas" width="360" height="400"></canvas>
+
+<br><br>
+
+<button class="btn" onclick="startGame()">Start Game</button>
+
+<p id="score">Score: 0</p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>❤️ Wallpaper Dukaan</p>
+<p>Made with HTML, CSS & JavaScript</p>
+
+</footer>
+
+
+<script>
+
+/* OTP */
+
+function verifyOTP(){
+
+    let otp =
+    document.getElementById("o1").value +
+    document.getElementById("o2").value +
+    document.getElementById("o3").value +
+    document.getElementById("o4").value;
+
+    if(otp === "1234"){
+        document.getElementById("otpMessage").innerHTML =
+        "✅ OTP Verified!";
+    }
+    else{
+        document.getElementById("otpMessage").innerHTML =
+        "❌ Wrong OTP. Demo OTP: 1234";
+    }
+}
+
+
+/* SEARCH */
+
+function searchWallpaper(){
+
+    let input =
+    document.getElementById("search").value.toLowerCase();
+
+    let cards =
+    document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        let text =
+        card.innerText.toLowerCase();
+
+        card.style.display =
+        text.includes(input) ? "block" : "none";
+
+    });
+}
+
+
+/* GAME */
+
+const canvas =
+document.getElementById("gameCanvas");
+
+const ctx =
+canvas.getContext("2d");
+
+let ballX = 180;
+let ballY = 350;
+
+let dx = 3;
+let dy = -3;
+
+let paddleX = 140;
+
+let score = 0;
+
+let bricks = [];
+
+for(let r=0;r<4;r++){
+
+    for(let c=0;c<6;c++){
+
+        bricks.push({
+            x:c*60+5,
+            y:r*30+30,
+            alive:true
+        });
+
+    }
+
+}
+
+function drawGame(){
+
+    ctx.clearRect(0,0,360,400);
+
+    /* ball */
+
+    ctx.beginPath();
+    ctx.arc(ballX,ballY,7,0,Math.PI*2);
+    ctx.fillStyle="red";
+    ctx.fill();
+    ctx.closePath();
+
+    /* paddle */
+
+    ctx.fillStyle="white";
+    ctx.fillRect(paddleX,380,80,10);
+
+    /* bricks */
+
+    bricks.forEach(b=>{
+
+        if(b.alive){
+
+            ctx.fillStyle="red";
+            ctx.fillRect(b.x,b.y,50,20);
+
+        }
+
+    });
+
+}
+
+
+function startGame(){
+
+    score=0;
+
+    ballX=180;
+    ballY=350;
+
+    dx=3;
+    dy=-3;
+
+    bricks.forEach(b=>b.alive=true);
+
+    gameLoop();
+
+}
+
+
+function gameLoop(){
+
+    drawGame();
+
+    ballX += dx;
+    ballY += dy;
+
+    if(ballX<7 || ballX>353){
+        dx=-dx;
+    }
+
+    if(ballY<7){
+        dy=-dy;
+    }
+
+    if(ballY>370 &&
+       ballX>paddleX &&
+       ballX<paddleX+80){
+
+        dy=-dy;
+
+    }
+
+    bricks.forEach(b=>{
+
+        if(
+        b.alive &&
+        ballX>b.x &&
+        ballX<b.x+50 &&
+        ballY>b.y &&
+        ballY<b.y+20
+        ){
+
+            b.alive=false;
+            dy=-dy;
+
+            score++;
+
+            document.getElementById("score").innerText =
+            "Score: "+score;
+        }
+
+    });
+
+    if(ballY>400){
+
+        alert("Game Over! Score: "+score);
+
+        return;
+
+    }
+
+    requestAnimationFrame(gameLoop);
+
+}
+
+
+/* Mobile paddle */
+
+canvas.addEventListener("touchmove",function(e){
+
+    let rect=canvas.getBoundingClientRect();
+
+    paddleX =
+    e.touches[0].clientX -
+    rect.left -
+    40;
+
+});
+
+</script>
+
+</body>
+</html>
+
