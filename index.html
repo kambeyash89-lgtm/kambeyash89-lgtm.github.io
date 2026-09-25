@@ -4,325 +4,172 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wallpaper Dukaan</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#050505;
-  color:white;
-}
-header{
-  background:#120000;
-  padding:18px;
-  text-align:center;
-  border-bottom:2px solid red;
-}
-header h1{color:red;margin:0}
-nav{margin-top:10px}
-nav a{
-  color:white;
-  text-decoration:none;
-  margin:10px;
-}
-.hero{
-  text-align:center;
-  padding:35px 15px;
-}
-.hero h2{
-  color:red;
-  font-size:34px;
-}
-button{
-  background:red;
-  color:white;
-  border:0;
-  padding:12px 18px;
-  border-radius:8px;
-  margin:5px;
-  font-size:16px;
-}
-section{
-  padding:25px 15px;
-  max-width:900px;
-  margin:auto;
-}
-.card{
-  background:#151515;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:20px;
-  margin:15px 0;
-}
-input{
-  width:100%;
-  padding:13px;
-  margin:7px 0;
-  border-radius:7px;
-  border:1px solid #555;
-  background:#222;
-  color:white;
-  font-size:16px;
-}
-.wallpapers{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:12px;
-}
-.wallpapers img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:10px;
-}
-#recaptcha-container{margin:12px 0}
-#game{
-  background:#111;
-  border:2px solid red;
-  display:block;
-  margin:auto;
-  max-width:100%;
-}
-#message{
-  color:#00ff66;
-  margin-top:10px;
-}
-footer{
-  text-align:center;
-  padding:25px;
-  border-top:1px solid #333;
-  margin-top:30px;
+body{margin:0;background:#09090b;color:#fff;font-family:Arial,sans-serif}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#09090b,#171717)}
+.box{width:100%;max-width:390px;background:#151515;border:1px solid #333;border-radius:24px;padding:28px;box-shadow:0 20px 60px #000}
+.logo{text-align:center;font-size:32px;font-weight:800;margin-bottom:8px}
+.sub{text-align:center;color:#aaa;margin-bottom:25px}
+input{width:100%;padding:15px;margin:8px 0;border-radius:12px;border:1px solid #444;background:#222;color:#fff;font-size:16px}
+button{width:100%;padding:15px;border:0;border-radius:12px;background:#ff2020;color:#fff;font-size:17px;font-weight:700;margin-top:10px}
+button:active{transform:scale(.98)}
+.error{color:#ff5555;text-align:center;min-height:22px;margin-top:10px}
+#app{display:none}
+header{padding:24px 18px;background:linear-gradient(135deg,#151515,#09090b);border-bottom:1px solid #292929}
+.title{font-size:30px;font-weight:800}
+.tag{color:#aaa;margin-top:5px}
+main{padding:18px;max-width:900px;margin:auto}
+.section{background:#151515;border:1px solid #292929;border-radius:20px;padding:18px;margin-bottom:18px}
+h2{margin-top:0}
+.search{margin-bottom:15px}
+.wallpapers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:#222;border-radius:16px;overflow:hidden}
+.card img{width:100%;height:180px;object-fit:cover;display:block}
+.card p{padding:10px;margin:0;color:#ddd}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions button{margin:0}
+#cameraBox{display:none;margin-top:15px}
+video{width:100%;border-radius:16px;background:#000}
+.note{color:#999;font-size:13px;line-height:1.5}
+.logout{background:#333}
+@media(max-width:500px){
+ .wallpapers{grid-template-columns:1fr 1fr}
+ .card img{height:150px}
 }
 </style>
 </head>
-
 <body>
 
+<div id="login" class="login">
+  <div class="box">
+    <div class="logo">🖼️ Wallpaper Dukaan</div>
+    <div class="sub">Private Wallpaper Gallery</div>
+
+    <input id="username" type="text" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div id="error" class="error"></div>
+  </div>
+</div>
+
+<div id="app">
 <header>
-  <h1>Wallpaper Dukaan 🔥</h1>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#otp">Login</a>
-    <a href="#wallpapers">Wallpapers</a>
-    <a href="#game">Game</a>
-  </nav>
+  <div class="title">🖼️ Wallpaper Dukaan</div>
+  <div class="tag">Your personal wallpaper gallery</div>
 </header>
 
-<section class="hero" id="home">
-  <h2>Hello Friends 👋</h2>
-  <p>Welcome to my Wallpaper Dukaan 🚀</p>
-  <button onclick="document.getElementById('wallpapers').scrollIntoView()">Browse Wallpapers</button>
-  <button onclick="document.getElementById('gameSection').scrollIntoView()">Play Game</button>
-</section>
+<main>
 
-<section id="otp">
-  <div class="card">
-    <h2>📱 Phone Login</h2>
-    <p>Apna Indian mobile number enter karo.</p>
+<div class="section">
+  <h2>📸 My Photos & Videos</h2>
+  <div class="actions">
+    <button onclick="document.getElementById('media').click()">📂 Choose Photos/Videos</button>
+    <button onclick="startCamera()">📷 Camera</button>
+  </div>
 
-    <input id="phone" type="tel" placeholder="+91XXXXXXXXXX">
+  <input id="media" type="file" accept="image/*,video/*" multiple style="display:none" onchange="showFiles(this.files)">
 
-    <div id="recaptcha-container"></div>
+  <div id="cameraBox">
+    <video id="video" autoplay playsinline></video>
+    <button onclick="stopCamera()">Stop Camera</button>
+  </div>
 
-    <button id="sendBtn">Send OTP</button>
+  <p class="note">
+    Photos/videos are selected by you through the phone's normal picker.
+    Camera access requires your browser's permission.
+  </p>
+  <div id="selected"></div>
+</div>
 
-    <div id="otpBox" style="display:none">
-      <input id="otp" type="number" placeholder="Enter OTP">
-      <button id="verifyBtn">Verify OTP</button>
+<div class="section">
+  <h2>🔎 Wallpapers</h2>
+  <input class="search" id="search" type="text" placeholder="Search wallpapers..." oninput="filterWalls()">
+
+  <div class="wallpapers" id="walls">
+    <div class="card" data-name="nature">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80">
+      <p>Nature</p>
     </div>
-
-    <p id="message"></p>
+    <div class="card" data-name="night city">
+      <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80">
+      <p>Night City</p>
+    </div>
+    <div class="card" data-name="mountains">
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80">
+      <p>Mountains</p>
+    </div>
+    <div class="card" data-name="ocean">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80">
+      <p>Ocean</p>
+    </div>
   </div>
-</section>
+</div>
 
-<section id="wallpapers">
-  <h2>🖼️ Wallpapers</h2>
+<div class="section">
+  <h2>🎮 Game</h2>
+  <button onclick="alert('Game section ready!')">Play Game</button>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
 
-  <div class="wallpapers">
-    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600">
-    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=600">
-    <img src="https://images.unsplash.com/photo-1534791547706-9b3b5b6e3d7b?w=600">
-    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600">
-    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600">
-    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600">
-  </div>
-</section>
-
-<section id="gameSection">
-  <div class="card">
-    <h2>🎮 Mini Game</h2>
-    <p>Red ball ko move karke bricks todne ki koshish karo!</p>
-    <canvas id="game" width="320" height="300"></canvas>
-    <br>
-    <button onclick="startGame()">Start Game</button>
-  </div>
-</section>
-
-<footer>
-  Made with ❤️ on Android | Wallpaper Dukaan
-</footer>
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAqgXs8nZCQZq2MAeMdakFa4EjYVsraDro",
-  authDomain: "wallpaper-dukaan.firebaseapp.com",
-  projectId: "wallpaper-dukaan",
-  storageBucket: "wallpaper-dukaan.firebasestorage.app",
-  messagingSenderId: "959349156631",
-  appId: "1:959349156631:web:f6390b4bfce1117a3ca552",
-  measurementId: "G-QM0YC6TM57"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-const message = document.getElementById("message");
-
-window.recaptchaVerifier = new RecaptchaVerifier(
-  auth,
-  "recaptcha-container",
-  {
-    size: "normal"
-  }
-);
-
-let confirmationResult;
-
-document.getElementById("sendBtn").onclick = async () => {
-
-  const phone = document.getElementById("phone").value.trim();
-
-  if (!/^\+91[0-9]{10}$/.test(phone)) {
-    message.textContent = "Number +91XXXXXXXXXX format me enter karo.";
-    message.style.color = "red";
-    return;
-  }
-
-  try {
-    message.textContent = "OTP bheja ja raha hai...";
-    message.style.color = "#00ff66";
-
-    confirmationResult = await signInWithPhoneNumber(
-      auth,
-      phone,
-      window.recaptchaVerifier
-    );
-
-    document.getElementById("otpBox").style.display = "block";
-    message.textContent = "OTP SMS me bhej diya gaya hai ✅";
-
-  } catch (error) {
-    console.error(error);
-    message.textContent = "OTP send nahi hua: " + error.message;
-    message.style.color = "red";
-  }
-};
-
-document.getElementById("verifyBtn").onclick = async () => {
-
-  const code = document.getElementById("otp").value.trim();
-
-  if (!confirmationResult) {
-    message.textContent = "Pehle Send OTP dabao.";
-    return;
-  }
-
-  try {
-    await confirmationResult.confirm(code);
-
-    message.textContent = "Login successful! 🎉";
-    message.style.color = "#00ff66";
-
-  } catch (error) {
-    console.error(error);
-    message.textContent = "OTP galat hai.";
-    message.style.color = "red";
-  }
-};
-
-</script>
+</main>
+</div>
 
 <script>
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+function login(){
+  const u=document.getElementById("username").value.trim();
+  const p=document.getElementById("password").value;
 
-let ballX, ballY, dx, dy, paddleX, running=false;
-
-function startGame(){
-  ballX=160;
-  ballY=250;
-  dx=3;
-  dy=-3;
-  paddleX=125;
-  running=true;
-  gameLoop();
-}
-
-function gameLoop(){
-
-  if(!running) return;
-
-  ctx.clearRect(0,0,320,300);
-
-  ctx.fillStyle="red";
-  ctx.fillRect(paddleX,280,70,10);
-
-  ctx.beginPath();
-  ctx.arc(ballX,ballY,8,0,Math.PI*2);
-  ctx.fillStyle="white";
-  ctx.fill();
-  ctx.closePath();
-
-  ballX+=dx;
-  ballY+=dy;
-
-  if(ballX<8 || ballX>312) dx=-dx;
-  if(ballY<8) dy=-dy;
-
-  if(ballY>272 && ballX>paddleX && ballX<paddleX+70)
-    dy=-dy;
-
-  if(ballY>300){
-    running=false;
-    alert("Game Over 😄");
+  if(u==="Yash Kamble" && p==="Yash123"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("app").style.display="block";
+  }else{
+    document.getElementById("error").textContent="Wrong username or password";
   }
-
-  requestAnimationFrame(gameLoop);
 }
 
-canvas.addEventListener("touchmove",e=>{
-  const rect=canvas.getBoundingClientRect();
-  paddleX=e.touches[0].clientX-rect.left-35;
-  if(paddleX<0)paddleX=0;
-  if(paddleX>250)paddleX=250;
-});
+function logout(){
+  document.getElementById("app").style.display="none";
+  document.getElementById("login").style.display="flex";
+  document.getElementById("password").value="";
+}
 
-canvas.addEventListener("mousemove",e=>{
-  const rect=canvas.getBoundingClientRect();
-  paddleX=e.clientX-rect.left-35;
-});
+function showFiles(files){
+  const out=document.getElementById("selected");
+  out.innerHTML="";
+  [...files].forEach(f=>{
+    const p=document.createElement("p");
+    p.textContent="✅ Selected: "+f.name;
+    out.appendChild(p);
+  });
+}
+
+async function startCamera(){
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:true});
+    document.getElementById("video").srcObject=stream;
+    document.getElementById("cameraBox").style.display="block";
+  }catch(e){
+    alert("Camera permission was denied or unavailable.");
+  }
+}
+
+function stopCamera(){
+  const v=document.getElementById("video");
+  if(v.srcObject){
+    v.srcObject.getTracks().forEach(t=>t.stop());
+    v.srcObject=null;
+  }
+  document.getElementById("cameraBox").style.display="none";
+}
+
+function filterWalls(){
+  const q=document.getElementById("search").value.toLowerCase();
+  document.querySelectorAll("#walls .card").forEach(c=>{
+    c.style.display=c.dataset.name.includes(q)?"block":"none";
+  });
+}
 </script>
-
-
-<div style="text-align:center;margin:25px 0;">
-  <a href="https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf"
-     target="_blank"
-     rel="noopener"
-     style="display:inline-block;background:#ff1744;color:white;padding:14px 22px;border-radius:12px;text-decoration:none;font-weight:bold;">
-    🎮 Download Subway Surfers
-  </a>
-</div>
 
 </body>
 </html>
